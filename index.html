@@ -214,15 +214,20 @@
             position: relative;
             z-index: 1;
             text-align: center;
+            width: 100%;
+            max-width: 90vw;
+            padding: 0 16px;
+            box-sizing: border-box;
         }
 
         .intro-logo-wrap {
             position: relative;
             width: min(220px, 60vw);
+            max-width: 220px;
             margin: 0 auto;
             opacity: 0;
             transform: translateY(24px) scale(0.85);
-            animation: logoReveal 1.6s ease-out forwards 0.1s;
+            animation: logoReveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.1s;
         }
 
         .intro-logo-glow {
@@ -244,13 +249,15 @@
 
         .intro-name {
             margin-top: 26px;
-            font-size: clamp(2.4rem, 6vw, 3.6rem);
-            letter-spacing: 0.3em;
+            font-size: clamp(1.5rem, 5vw, 3.6rem);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             font-weight: 800;
             opacity: 0;
             transform: translateY(18px);
-            animation: nameReveal 1.3s ease-out forwards 1s;
+            animation: nameReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards 1s;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .intro-name span {
@@ -264,19 +271,21 @@
 
         .intro-tagline {
             margin-top: 10px;
-            font-size: 0.98rem;
-            letter-spacing: 0.23em;
+            font-size: clamp(0.7rem, 2.5vw, 0.98rem);
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.7);
             opacity: 0;
             transform: translateY(12px);
-            animation: taglineReveal 1s ease-out forwards 2s;
+            animation: taglineReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards 2s;
+            line-height: 1.4;
+            padding: 0 8px;
         }
 
         .intro-line {
             position: relative;
-            margin: 42px auto 0;
-            width: min(480px, 70vw);
+            margin: 28px auto 0;
+            width: min(320px, 85vw);
             height: 1px;
             background: linear-gradient(90deg,
                 rgba(255, 255, 255, 0),
@@ -285,7 +294,7 @@
             );
             overflow: hidden;
             opacity: 0;
-            animation: lineReveal 1.2s ease-out forwards 2.2s;
+            animation: lineReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards 2.2s;
         }
 
         .intro-line::before {
@@ -301,13 +310,79 @@
         }
 
         .intro-footer {
-            margin-top: 32px;
-            font-size: 0.9rem;
-            letter-spacing: 0.18em;
+            margin-top: 24px;
+            font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.5);
             opacity: 0;
-            animation: footerReveal 1s ease-out forwards 2.7s;
+            animation: footerReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards 2.7s;
+            padding: 0 8px;
+            line-height: 1.3;
+        }
+
+        /* Intro: mobile-first fixes */
+        @media (max-width: 768px) {
+            .intro-overlay {
+                justify-content: center;
+                padding: 20px 0 70px;
+            }
+            .intro-content {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+            .intro-logo-wrap {
+                width: min(140px, 38vw);
+                max-width: 160px;
+                animation: logoRevealMobile 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.1s;
+            }
+            .intro-logo-glow {
+                inset: -20%;
+                filter: blur(12px);
+            }
+            .intro-name {
+                margin-top: 18px;
+                font-size: clamp(1.1rem, 6vw, 1.6rem);
+                letter-spacing: 0.08em;
+            }
+            .intro-tagline {
+                margin-top: 8px;
+                font-size: 0.65rem;
+                letter-spacing: 0.06em;
+            }
+            .intro-line {
+                margin: 20px auto 0;
+                width: min(260px, 80vw);
+            }
+            .intro-footer {
+                margin-top: 16px;
+                font-size: 0.6rem;
+                letter-spacing: 0.05em;
+            }
+            .intro-skip {
+                right: 16px;
+                bottom: 16px;
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                letter-spacing: 0.08em;
+            }
+        }
+
+        @keyframes logoRevealMobile {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+                filter: blur(4px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(0) scale(1.02);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .intro-skip {
@@ -353,13 +428,28 @@
         @keyframes logoReveal {
             0% {
                 opacity: 0;
-                transform: translateY(32px) scale(0.85);
-                filter: blur(6px);
+                transform: translateY(32px) scale(0.88);
+                filter: blur(8px);
             }
-            60% {
-                opacity: 1;
-                transform: translateY(0) scale(1.04);
+            50% {
+                opacity: 0.9;
+                filter: blur(2px);
+            }
+            70% {
+                transform: translateY(-4px) scale(1.03);
                 filter: blur(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes nameReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(24px) scale(0.96);
             }
             100% {
                 opacity: 1;
@@ -367,21 +457,10 @@
             }
         }
 
-        @keyframes nameReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes taglineReveal {
             0% {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(14px);
             }
             100% {
                 opacity: 1;
@@ -390,8 +469,14 @@
         }
 
         @keyframes lineReveal {
-            0% { opacity: 0; transform: scaleX(0.5); }
-            100% { opacity: 1; transform: scaleX(1); }
+            0% {
+                opacity: 0;
+                transform: scaleX(0.3);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
         }
 
         @keyframes sweep {
@@ -402,31 +487,35 @@
         }
 
         @keyframes footerReveal {
-            0% { opacity: 0; transform: translateY(14px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes nameGlow {
             0% {
-                text-shadow:
-                    0 0 18px rgba(255, 102, 0, 0.35),
-                    0 0 36px rgba(0, 204, 255, 0.25);
+                filter: brightness(1);
+                text-shadow: 0 0 20px rgba(255, 102, 0, 0.35);
             }
             100% {
-                text-shadow:
-                    0 0 30px rgba(255, 204, 0, 0.55),
-                    0 0 60px rgba(0, 204, 255, 0.4);
+                filter: brightness(1.08);
+                text-shadow: 0 0 28px rgba(255, 204, 0, 0.5);
             }
         }
 
         @keyframes introFadeOut {
             0% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-18px);
+                transform: scale(1.02);
             }
         }
 
